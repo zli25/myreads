@@ -10,6 +10,16 @@ class BookList extends Component {
 	getBooks = shelfCode =>
 		this.state.books.filter(book => book.shelf === shelfCode);
 
+	updateBook = (bookToUpdate, newSelf) => {
+		BooksAPI.update(bookToUpdate, newSelf).then(updatedBooks => {
+			this.setState(currentState => ({
+				books: currentState.books
+					.filter(book => book.id !== bookToUpdate.id)
+					.concat([{ ...bookToUpdate, shelf: newSelf }])
+			}));
+		});
+	};
+
 	componentDidMount() {
 		BooksAPI.getAll().then(books =>
 			this.setState(() => ({
@@ -42,7 +52,11 @@ class BookList extends Component {
 				<ul>
 					{shelves.map(shelf =>
 						<li key={shelf.shelfCode}>
-							<Shelf books={shelf.books} title={shelf.title} />
+							<Shelf
+								books={shelf.books}
+								title={shelf.title}
+								onBookUpdate={this.updateBook}
+							/>
 						</li>
 					)}
 				</ul>
