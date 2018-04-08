@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 
 class Book extends Component {
 	render() {
-		const book = this.props.book;
+		// const book = this.props.book;
 
 		return (
 			<div className="book">
@@ -13,15 +13,18 @@ class Book extends Component {
 						style={{
 							width: 128,
 							height: 193,
-							backgroundImage: `url(${book.imageLinks.thumbnail})`
+							backgroundImage: this.props.imageLinks
+								? `url(${this.props.imageLinks.thumbnail})`
+								: ''
 						}}
 					/>
 					<div className="book-shelf-changer">
 						<select
-							onChange={evt => this.props.onBookUpdate(book, evt.target.value)}
-							value={book.shelf}
+							onChange={evt =>
+								this.props.onBookUpdate({ ...this.props }, evt.target.value)}
+							value={this.props.shelf ? this.props.shelf : 'none'}
 						>
-							<option value="none" disabled>
+							<option value="" disabled>
 								Move to...
 							</option>
 							<option value="currentlyReading">Currently Reading</option>
@@ -32,10 +35,10 @@ class Book extends Component {
 					</div>
 				</div>
 				<div className="book-title">
-					{book.title}
+					{this.props.title}
 				</div>
 				<div className="book-authors">
-					{book.authors.map(author =>
+					{this.props.authors.map(author =>
 						<p key={author}>
 							{author}
 						</p>
@@ -47,11 +50,14 @@ class Book extends Component {
 }
 
 Book.propTypes = {
-	book: PropTypes.shape({
-		title: PropTypes.string.isRequired,
-		authors: PropTypes.array.isRequired
-	}),
+	title: PropTypes.string,
+	authors: PropTypes.array,
 	onBookUpdate: PropTypes.func
+};
+
+Book.defaultProps = {
+	authors: [],
+	onBookUpdate: () => {}
 };
 
 export default Book;

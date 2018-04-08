@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import * as BooksAPI from './utils/BooksAPI';
 import Shelf from './Shelf';
 
@@ -10,12 +11,12 @@ class BookList extends Component {
 	getBooks = shelfCode =>
 		this.state.books.filter(book => book.shelf === shelfCode);
 
-	updateBook = (bookToUpdate, newSelf) => {
-		BooksAPI.update(bookToUpdate, newSelf).then(updatedBooks => {
+	updateBook = (bookToUpdate, newShelf) => {
+		BooksAPI.update(bookToUpdate, newShelf).then(updatedBooks => {
 			this.setState(currentState => ({
 				books: currentState.books
 					.filter(book => book.id !== bookToUpdate.id)
-					.concat([{ ...bookToUpdate, shelf: newSelf }])
+					.concat([{ ...bookToUpdate, shelf: newShelf }])
 			}));
 		});
 	};
@@ -48,18 +49,26 @@ class BookList extends Component {
 		];
 
 		return (
-			<div className="book-selfves">
-				<ul>
-					{shelves.map(shelf =>
-						<li key={shelf.shelfCode}>
-							<Shelf
-								books={shelf.books}
-								title={shelf.title}
-								onBookUpdate={this.updateBook}
-							/>
-						</li>
-					)}
-				</ul>
+			<div className="list-books">
+				<div className="list-books-title">
+					<h1>MyReads</h1>
+				</div>
+				<div className="list-books-content">
+					<ul>
+						{shelves.map(shelf =>
+							<li key={shelf.shelfCode}>
+								<Shelf
+									books={shelf.books}
+									title={shelf.title}
+									onBookUpdate={this.updateBook}
+								/>
+							</li>
+						)}
+					</ul>
+				</div>
+				<div className="open-search">
+					<Link to="/search">Add a book</Link>
+				</div>
 			</div>
 		);
 	}

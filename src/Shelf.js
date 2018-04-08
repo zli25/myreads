@@ -13,7 +13,7 @@ class Shelf extends Component {
 					<ol className="books-grid">
 						{this.props.books.map(book =>
 							<li key={book.id}>
-								<Book book={book} onBookUpdate={this.props.onBookUpdate} />
+								<Book {...book} onBookUpdate={this.props.onBookUpdate} />
 							</li>
 						)}
 					</ol>
@@ -27,11 +27,16 @@ Shelf.propTypes = {
 	title: PropTypes.string.isRequired,
 	books: PropTypes.arrayOf(
 		PropTypes.shape({
-			title: PropTypes.string.isRequired,
-			authors: PropTypes.array.isRequired
+			title: PropTypes.string,
+			authors: PropTypes.array
 		})
 	),
 	onBookUpdate: PropTypes.func
+};
+
+Shelf.defaultProps = {
+	title: '',
+	books: []
 };
 
 export default Shelf;
