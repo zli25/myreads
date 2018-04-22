@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 
 class Book extends Component {
@@ -8,16 +9,18 @@ class Book extends Component {
 		return (
 			<div className="book">
 				<div className="book-top">
-					<div
-						className="book-cover"
-						style={{
-							width: 128,
-							height: 193,
-							backgroundImage: this.props.imageLinks
-								? `url(${this.props.imageLinks.thumbnail})`
-								: ''
-						}}
-					/>
+					<Link to={`/books/${this.props.id}`}>
+						<div
+							className="book-cover"
+							style={{
+								width: 128,
+								height: 193,
+								backgroundImage: this.props.imageLinks
+									? `url(${this.props.imageLinks.thumbnail})`
+									: ''
+							}}
+						/>
+					</Link>
 					<div className="book-shelf-changer">
 						<select
 							onChange={evt =>

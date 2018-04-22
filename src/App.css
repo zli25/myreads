@@ -15,6 +15,10 @@ ul {
   list-style: none;
 }
 
+a {
+  text-decoration: none;
+}
+
 /* main page */
 
 .list-books-title {
@@ -178,4 +182,48 @@ ul {
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+
+/* book detail page */
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.book-title {
+  text-align: center;
+}
+
+.book-authors {
+  text-align: center;
+  color: #000;
+}
+
+.book-authors span {
+  margin-left: 10px;
+}
+
+.book-detail .book-cover {
+  margin-top: 40px;
+  float: left;
+  width: 30%;
+}
+
+.book-info {
+  width: 70%;
+  margin: 40px 0 100px 0;
+  float: right;
+}
+
+.book-info table th {
+  font-weight: normal;
+  padding: 0 20px;
+  text-align: left;
+  vertical-align: text-top;
+}
+
+.book-info .book-shelf-changer {
+  position: relative;
+  margin-top: 10px;
 }
