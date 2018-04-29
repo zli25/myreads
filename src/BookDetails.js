@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Header from './Header';
 import * as BooksAPI from './utils/BooksAPI';
 
@@ -17,7 +16,6 @@ class BookDetails extends Component {
 	};
 
 	componentDidMount() {
-		console.log(this.props.match.params.id);
 		BooksAPI.get(this.props.match.params.id).then(book =>
 			this.setState(() => ({
 				book: book
@@ -26,6 +24,17 @@ class BookDetails extends Component {
 	}
 
 	render() {
+		const style = this.state.book
+			? {
+					width: 256,
+					height: 386,
+					backgroundSize: 'contain',
+					backgroundImage: this.state.book.imageLinks
+						? `url(${this.state.book.imageLinks.thumbnail})`
+						: ''
+				}
+			: {};
+
 		return this.state.book
 			? <div>
 					<Header />
@@ -46,17 +55,7 @@ class BookDetails extends Component {
 									</span>
 								)}
 							</div>
-							<div
-								className="book-cover"
-								style={{
-									width: 256,
-									height: 386,
-									backgroundSize: 'contain',
-									backgroundImage: this.state.book.imageLinks
-										? `url(${this.state.book.imageLinks.thumbnail})`
-										: ''
-								}}
-							/>
+							<div className="book-cover" style={style} />
 							<div className="book-info">
 								<table className="table table-bordered table-hover">
 									<tbody>

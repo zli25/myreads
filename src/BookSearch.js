@@ -19,7 +19,8 @@ class BookSearch extends Component {
 			});
 		} else {
 			this.setState(() => ({
-				booksReturned: []
+				booksReturned: [],
+				booksOnShelf: []
 			}));
 		}
 	};
